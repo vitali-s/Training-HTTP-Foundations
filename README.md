@@ -8,6 +8,8 @@ There is an example of ASP.NET Web API services, it consists of 3 projects:
  - HttpFoundations - web application functionality: bootstrapping, controllers, models;
  - HttpFoundations.Tests - integration tests for Web API services.
 
+The functionality should be implemented using Message Handlers (http://www.asp.net/web-api/overview/working-with-http/http-message-handlers) or Action Filters (System.Web.Http.Filters.ActionFilterAttribute)
+
 Application should be extended to meet following acceptance criteria:
  - Company information (CompanyController controller, Get method) should be compressed using GZip or Deflate data compression algorithms depending on client support. Appropriate behavior should be verified by Fiddler and integration tests for following cases:
  	- Client do not support compression;
@@ -25,7 +27,7 @@ Application should be extended to meet following acceptance criteria:
  	- For two requests in more than 30 seconds. The content should be returned in both cases.
 
 Notes:
+
  - Example is developed using .NET 4.5, Visual Studio 2013 and Web API 2.1.
  - Example of simple integration test is provided at: HttpFoundations.Tests\Controllers\CompanyControllerTests.cs
- - Functionality should be implemented using action filters System.Web.Http.Filters.ActionFilterAttribute
  - Fiddler could be downloaded at: http://www.telerik.com/download/fiddler
