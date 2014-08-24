@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CompanyControllerTests.cs" />
     <Compile Include="Controllers\WebApiIntegrationTest.cs" />
+    <Compile Include="Extensions\HttpResponseMessageExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

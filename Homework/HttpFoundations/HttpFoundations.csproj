@@ -68,6 +68,9 @@
   <ItemGroup>
     <Compile Include="Bootstrapping\CompositionRoot.cs" />
     <Compile Include="Bootstrapping\UnityDependencyResolver.cs" />
+    <Compile Include="Constants\Encodings.cs" />
+    <Compile Include="Constants\HttpHeaders.cs" />
+    <Compile Include="Constants\MediaTypes.cs" />
     <Compile Include="Models\CompanyInfoModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\OfficeModel.cs" />
