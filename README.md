@@ -17,6 +17,8 @@ Application should be extended to meet following acceptance criteria:
  	- Client support only Deflate compression;
  	- Client support both GZip and Deflate compression;
  	- Create table with results of traffic size comparison for each method (without compression, GZip, Deflate).
+
+ 	- Verify implementation by running integration tests located at: CompanyControllerTests.
  
  - Offices information (CompanyController controller, GetOffices method) should be cached for 20 seconds. Functionality should be verified using Fiddler and integration tests for following cases:
  	- For two requests in 20 seconds. The first request should content, the second "Not Modified" status;
