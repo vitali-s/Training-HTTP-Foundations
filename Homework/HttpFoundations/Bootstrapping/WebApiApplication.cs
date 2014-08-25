@@ -14,6 +14,9 @@ namespace HttpFoundations.Bootstrapping
             return httpConfig;
         }
 
+        /// <summary>
+        /// Application start, do not change this method.
+        /// </summary>
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(httpConfig => Configure(httpConfig));

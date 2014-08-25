@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Web.Http.SelfHost;
 using HttpFoundations.Bootstrapping;
+using HttpFoundations.Constants;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HttpFoundations.Tests.Controllers
@@ -23,12 +24,13 @@ namespace HttpFoundations.Tests.Controllers
 
             _httpServer = new HttpSelfHostServer(configuration);
 
-            _httpServer.OpenAsync();
+            _httpServer.OpenAsync().Wait();
         }
 
         [TestCleanup]
         public void Stop()
         {
+            _httpServer.CloseAsync().Wait();
             _httpServer.Dispose();
         }
 
@@ -37,6 +39,7 @@ namespace HttpFoundations.Tests.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = _baseAddress;
+                client.DefaultRequestHeaders.Add(HttpHeaders.Accept, MediaTypes.ApplicationJson);
 
                 action(client);
             }

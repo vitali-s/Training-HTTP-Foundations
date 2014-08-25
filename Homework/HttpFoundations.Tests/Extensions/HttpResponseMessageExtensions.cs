@@ -1,32 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
+using System.IO;
+using System.IO.Compression;
+using System.Net.Http;
+using HttpFoundations.Constants;
+using Newtonsoft.Json;
 
 namespace HttpFoundations.Tests.Extensions
 {
     public static class HttpResponseMessageExtensions
     {
-        public static bool ContainsHeader(this HttpResponseHeaders responseHeaders, string key, string value = null)
+        public static TModel ReadJson<TModel>(this HttpContent httpContent, string contentEncoding = null)
         {
-            var httpHeader = responseHeaders.FirstOrDefault(header => string.Compare(header.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
-
-            if (httpHeader.Equals(default(KeyValuePair<string, IEnumerable<string>>)))
+            using (var stream = httpContent.ReadAsStreamAsync().Result)
             {
-                return false;
-            }
+                var contentStream = stream;
 
-            if (value != null)
-            {
-                var httpHeaderValue = httpHeader.Value.FirstOrDefault(headerValue => string.Compare(headerValue, value, StringComparison.InvariantCultureIgnoreCase) == 0);
-
-                if (httpHeaderValue == null)
+                if (string.Compare(contentEncoding, Encodings.GZip, StringComparison.InvariantCultureIgnoreCase) == 0)
                 {
-                    return false;
+                    contentStream = new GZipStream(stream, CompressionMode.Decompress, false);
+                }
+                else if (string.Compare(contentEncoding, Encodings.Deflate, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    contentStream = new DeflateStream(stream, CompressionMode.Decompress, false);
+                }
+
+                using (contentStream)
+                {
+                    using (var reader = new StreamReader(contentStream))
+                    {
+                        try
+                        {
+                            return JsonConvert.DeserializeObject<TModel>(reader.ReadToEnd());
+                        }
+                        catch
+                        {
+                            return default(TModel);
+                        }
+                    }
                 }
             }
-
-            return true;
         }
     }
 }
