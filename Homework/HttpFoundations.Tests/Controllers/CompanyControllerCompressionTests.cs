@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HttpFoundations.Tests.Controllers
 {
     [TestClass]
-    public class CompanyControllerTests : WebApiIntegrationTest
+    public class CompanyControllerCompressionTests : WebApiIntegrationTest
     {
         [TestMethod]
         public void Company_ShouldNotBeCompressed_WhenClientDoNotSupportCompression()
